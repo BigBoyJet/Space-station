@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -18,7 +19,8 @@ public class HighlightAndSelectUI : MonoBehaviour
 
     private void Start()
     {
-        rayInteractor = Object.FindFirstObjectByType<XRRayInteractor>();
+        rayInteractor = UnityEngine.Object.FindFirstObjectByType<XRRayInteractor>();
+        Debug.Log(rayInteractor);
         uiCanvas.SetActive(false); // Hide UI at start
         if (highlightEffect != null)
             highlightEffect.SetActive(false); // Hide highlight at start
@@ -26,13 +28,16 @@ public class HighlightAndSelectUI : MonoBehaviour
 
     private void Update()
     {
+      //  Debug.Log("test"); 
         // Check if the ray is hitting this object
         if (rayInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit))
         {
+            Debug.Log("hit trigger working");
             if (hit.transform == transform)
             {
                 if (highlightEffect != null)
                     highlightEffect.SetActive(true);
+                Debug.Log("highlight working");
 
                 // Check trigger input
                 bool triggerPressed = IsTriggerPressed();
